@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: consumer
+
+
+  cloud:
+    function:
+      definition: processRiderLocation;processRiderstatus
+    stream:
+      function:
+        bindings:
+          processRiderLocation-in-0: processRiderLocation-in-0
+          processRiderstatus-in-0: processRiderstatus-in-0
+      bindings:
+        processRiderLocation-in-0:
+          destination: my-topic
+          content-type: application/json
+          group: my-new-group
+        processRiderstatus-in-0:
+          destination: my-topic
+          content-type: application/json
+          group: my-new-group
+
+
+      kafka:
+        binder:
+          brokers: localhost:9092
+
+logging:
+  level:
+    org.springframework.cloud.stream: DEBUG
+
+server:
+  port: 8060

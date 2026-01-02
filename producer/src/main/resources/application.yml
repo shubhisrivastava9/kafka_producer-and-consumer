@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: producer
+
+  cloud:
+    function:
+      definition: sendRiderLocation
+
+    stream:
+      poller:
+        fixed-delay: 1000
+
+      bindings:
+        sendRiderLocation-out-0:
+          destination: my-topic
+          content-type: application/json
+
+      kafka:
+        binder:
+          brokers: localhost:9092
+
+server:
+  port: 8070
